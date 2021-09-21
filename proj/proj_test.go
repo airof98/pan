@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/airof98/pan/com"
+
 	"github.com/pebbe/go-proj-4/proj"
 	"github.com/stretchr/testify/assert"
 )
@@ -55,4 +57,22 @@ func TestLnglatToKakao(t *testing.T) {
 	x, y, err := proj.Transform2(p4326, p5181, proj.DegToRad(lng), proj.DegToRad(lat))
 	assert.NoError(t, err)
 	fmt.Printf("https://map.kakao.com/?map_type=TYPE_MAP&q=test&urlLevel=3&urlX=%d&urlY=%d\n", int(x*2.5), int(y*2.5))
+}
+
+func TestDistance(t *testing.T) {
+	lng0, lat0 := 126.976972789, 37.564155705 //서울역
+	lng1, lat1 := 129.158583945, 35.157957397 //해운대
+	x0, y0, err := proj.Transform2(p4326, p5181, proj.DegToRad(lng0), proj.DegToRad(lat0))
+	assert.NoError(t, err)
+	x1, y1, err := proj.Transform2(p4326, p5181, proj.DegToRad(lng1), proj.DegToRad(lat1))
+	assert.NoError(t, err)
+	d := com.EuclidDistance(x0, y0, x1, y1)
+	fmt.Println(d)
+
+	x0, y0, err = proj.Transform2(p4326, p3857, proj.DegToRad(lng0), proj.DegToRad(lat0))
+	assert.NoError(t, err)
+	x1, y1, err = proj.Transform2(p4326, p3857, proj.DegToRad(lng1), proj.DegToRad(lat1))
+	assert.NoError(t, err)
+	d = com.EuclidDistance(x0, y0, x1, y1)
+	fmt.Println(d)
 }

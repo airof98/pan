@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+ pan:
+  container_name: pan
+  image: airof98/pan:latest
+  entrypoint: /bin/bash
+  stdin_open: true
+  tty: true
+  working_dir: /pan
+  volumes:
+   - ./:/pan/
