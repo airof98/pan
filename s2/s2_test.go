@@ -39,10 +39,12 @@ func TestSellID(t *testing.T) {
 
 	ll = s2.LatLngFromDegrees(lat2, lng2)
 	cellID = s2.CellIDFromLatLng(ll)
-	fmt.Println(cellID, cellID.Face(), cellID.Level(), cellID.LatLng())
+	cell = s2.CellFromCellID(cellID)
+	fmt.Println(cellID, cellID.Face(), cellID.Level(), cellID.LatLng(), cell.RectBound())
 	for i := 29; i >= 0; i-- {
 		parent := cellID.Parent(i)
-		fmt.Println(parent, parent.Face(), parent.Level(), parent.LatLng())
+		cell = s2.CellFromCellID(parent)
+		fmt.Println(parent, parent.Face(), parent.Level(), parent.LatLng(), cell.RectBound())
 	}
 }
 
